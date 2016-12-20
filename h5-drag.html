@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box-wrap {    width: 600px;    height: 450px;    margin-top: 20px;    border: 1px solid green;}
+		#box {    width: 400px;    height: 260px;    margin: 20px 0 0 20px;    border: 1px solid red;    outline: 1px solid blue;    outline-offset: 10px;    background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);    background: -moz-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);    background: -o-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);}
+	</style>
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+</head>
+<body>
+	<div id="box" draggable="true"></div>
+	<div id="box-wrap">    </div>
+</body>
+<script>
+// 拖动元素
+var eleBox = document.getElementById('box');
+eleBox.addEventListener('dragstart', function(e) {    e.dataTransfer.setData('ele', e.target.id);  // 获取拖动元素的id
+});
+eleBox.addEventListener('drag', function(e) {    console.log('持续拖动！');});
+eleBox.addEventListener('dragend', function(e) {    console.log('结束拖动！');});
+// 目录元素
+var eleBoxWrap = document.getElementById('box-wrap');
+eleBoxWrap.addEventListener('dragenter', function(e) {    console.log('拖动元素已进入此容器！');});
+eleBoxWrap.addEventListener('dragover', function(e) {    console.log('拖动元素悬浮在此容器上！');    e.preventDefault();});
+eleBoxWrap.addEventListener('dragleave', function(e) {    console.log('拖动元素已离开此容器！');});
+eleBoxWrap.addEventListener('drop', function(e) {    e.preventDefault();    var data = e.dataTransfer.getData('ele'); 
+ // 获取拖动元素的id    
+ e.target.appendChild(document.getElementById(data));    console.log('放下')});
+</script>
+</html>
